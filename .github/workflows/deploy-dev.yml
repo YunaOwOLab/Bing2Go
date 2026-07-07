@@ -1,8 +1,8 @@
 name: Deploy to Development Environment
 
 on:
-  push:
-    branches: [ dev ]
+    push:
+        branches: [dev]
 
 jobs:
     deploy:
@@ -11,20 +11,20 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v6
               with:
-                ref: dev
+                  ref: dev
 
             - name: Sync files to server
               run: |
-                rsync -avz --delete --exclude='.env' ./ ~/app/bing2go-dev
+                  rsync -avz --delete --exclude='.env' ./ ~/apps/Bing2Go-dev
 
             - name: Restart development service
               run: |
-                set -euo pipefail # Enable strict error handling
-                cd ~/app/bing2go-dev
+                  set -euo pipefail # Enable strict error handling
+                  cd ~/apps/Bing2Go-dev
 
-                echo "Rebuilding & restarting development service..."
-                docker compose down
-                docker compose build --no-cache
-                docker compose up -d
+                  echo "Rebuilding & restarting development service..."
+                  docker compose down
+                  docker compose build --no-cache
+                  docker compose up -d
 
-                echo "Development service restarted successfully."
+                  echo "Development service restarted successfully."
