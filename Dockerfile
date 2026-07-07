@@ -31,7 +31,7 @@ RUN pnpm run build
 # 最終執行階段
 # =========================
 
-FROM base
+FROM base AS runtime
 
 COPY --from=prod-deps /app/node_modules /app/node_modules
 COPY --from=build /app/.output /app/.output
